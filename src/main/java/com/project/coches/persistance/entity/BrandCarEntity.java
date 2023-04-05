@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="marca_choche")
-public class MarcaCocheEntity {
+public class BrandCarEntity {
 
 
     /**
