@@ -22,6 +22,10 @@ public class BrandCarController {
      */
     private final IBrandCarService iBrandCarService;
 
+    /**
+     * devuelve lista de marcas coche
+     * @return hhtcode OK con lista de marcas coche
+     */
     @GetMapping()
     public ResponseEntity<List<BrandCarPojo>> gettAll(){
         //return new ResponseEntity.ok(iBrandCarService.getAll()); otra alternativa
@@ -30,9 +34,9 @@ public class BrandCarController {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     *devuelve una marca coche dada su id
+     * @param id Ide de la marca coche a buscar
+     * @return httpcode OK si la encuentr, httpcode nor found de lo contrario
      */
     @GetMapping(path = "/{id}")
     public ResponseEntity<BrandCarPojo> getBrandCar(@PathVariable Integer id){
@@ -40,9 +44,9 @@ public class BrandCarController {
     }
 
     /**
-     *
-     * @param brandCarPojoNew
-     * @return
+     *crea una nueva marca coche
+     * @param brandCarPojoNew marca coche a crear
+     * @return httpcode Create si la guarda correctamente, httpcode BadRequest de lo contrario
      */
     @PostMapping
     public ResponseEntity<BrandCarPojo> save(@RequestBody BrandCarPojo brandCarPojoNew){
@@ -52,5 +56,34 @@ public class BrandCarController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    /**
+     *  actualiza una marca coche
+     * @param brandCarPojoUpdate marca coche actualizada
+     * @return httpcode OK si la actualiza correctamente
+     */
+    @PatchMapping
+    public ResponseEntity<BrandCarPojo> update(@RequestBody BrandCarPojo brandCarPojoUpdate){
+
+        BrandCarPojo brandCarPojo = iBrandCarService.update(brandCarPojoUpdate);
+
+        if(brandCarPojo==null){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else{
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(brandCarPojo);
+        }
+        return null;
+    }
+
+    /**
+     * elimina una marca coche dada su id
+     * @param id Id de la marca coche a eliminar
+     * @return httpcode OK si la elimina, httpcode httpcode sino existe
+     */
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer id){
+        return new ResponseEntity<>(this.iBrandCarService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND );
     }
 }

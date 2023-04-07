@@ -50,6 +50,20 @@ public class BrandCardService implements IBrandCarService{
     }
 
     /**
+     *
+     * @param newBrandCar marca coche a actualizar
+     * @return
+     */
+    @Override
+    public BrandCarPojo update(BrandCarPojo newBrandCar) {
+
+        if(iBrandCarRepository.getBrandCar(newBrandCar.getId()).isEmpty()){
+            return null;
+        }
+        return iBrandCarRepository.save(newBrandCar);
+    }
+
+    /**
      * elimina una marca coche dada su id
      * @param idBrandCar Id del marca coche a eliminar
      * @return true si borro, false de lo contrario
