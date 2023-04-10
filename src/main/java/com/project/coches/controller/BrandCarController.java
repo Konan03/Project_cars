@@ -65,16 +65,7 @@ public class BrandCarController {
      */
     @PatchMapping
     public ResponseEntity<BrandCarPojo> update(@RequestBody BrandCarPojo brandCarPojoUpdate){
-
-        BrandCarPojo brandCarPojo = iBrandCarService.update(brandCarPojoUpdate);
-
-        if(brandCarPojo==null){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }else{
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(brandCarPojo);
-        }
-        return null;
+        return ResponseEntity.of(iBrandCarService.update(brandCarPojoUpdate));
     }
 
     /**

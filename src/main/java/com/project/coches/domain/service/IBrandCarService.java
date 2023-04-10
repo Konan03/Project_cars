@@ -32,7 +32,7 @@ public interface IBrandCarService {
      * @param newBrandCar marca coche a actualizar
      * @return marca coche actualizada
      */
-    BrandCarPojo update(BrandCarPojo newBrandCar);
+    Optional<BrandCarPojo> update(BrandCarPojo newBrandCar);
 
     /**
      * elimina una marca coche dada su id
